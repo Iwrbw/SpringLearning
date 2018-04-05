@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--这个指向空的构造函数-->
+    <bean name="bean1" class="com.helloworld.use.constructor.HelloWorld"/>
+
+    <!--指向有参的构造函数-->
+    <bean name="bean2" class="com.helloworld.use.constructor.HelloWorld">
+        <constructor-arg index="0" value="Hello Spring"/>
+    </bean>
+    <!--这里需要制定工厂方法-->
+    <bean name="bean3" class="com.helloworld.use.statis.factory.HelloApiStaticFactory" factory-method="newInstance">
+        <constructor-arg index="0" value="Hello Spring,use static Factory"/>
+    </bean>
+
+    <!--定义静态工厂的bean-->
+    <bean name="beanFactory" class="com.helloworld.use.factory.demo2.HelloUseStaticFactory" />
+    <!--用工厂的bean实例化bean-->
+    <bean name="bean4" factory-bean="beanFactory" factory-method="newInstance">
+
+        <constructor-arg value="Hello Spring use static factory demo2" index="0"/>
+    </bean>
+</beans>
