@@ -19,7 +19,49 @@
     <bean name="beanFactory" class="com.helloworld.use.factory.demo2.HelloUseStaticFactory" />
     <!--用工厂的bean实例化bean-->
     <bean name="bean4" factory-bean="beanFactory" factory-method="newInstance">
-
         <constructor-arg value="Hello Spring use static factory demo2" index="0"/>
+    </bean>
+
+    <!--通过构造器注入-->
+    <!--1、通过索引 2、通过类型 3、根据参数名字 分别注入-->
+    <bean id="byIndex" class="com.helloworld.use.di.construcor.HelloWorld3">
+        <constructor-arg index="0" value="Hello World by Index"/>
+        <constructor-arg index="1" value="1"/>
+    </bean>
+
+    <bean id="byType" class="com.helloworld.use.di.construcor.HelloWorld3">
+        <constructor-arg type="java.lang.String" value="Hello World by Type"/>
+        <constructor-arg type="int" value="2"/>
+    </bean>
+
+    <bean id="byName" class="com.helloworld.use.di.construcor.HelloWorld3">
+        <constructor-arg name="message" value="Hello World by Name"/>
+        <constructor-arg name="index" value="3"/>
+    </bean>
+
+    <!--增加工厂类，使用上面的三种方式注入-->
+    <!--因为id的单一，我们将id首字母大写，但是编码首字母小写，这里只是用来区分-->
+    <!--这里我们可以发现，class指向工厂类，增加factory-method配置-->
+    <bean id="ByIndex" class="com.helloworld.use.di.construcor.HelloWorld3Factory" autowire="constructor" factory-method="newInstance">
+        <constructor-arg index="0" value="Hello World by Index"/>
+        <constructor-arg index="1" value="1"/>
+    </bean>
+
+    <!--<bean id="ByType" class="com.helloworld.use.di.construcor.HelloWorld3Factory" autowire="byType" factory-method="newInstance">-->
+        <!--<constructor-arg type="java.lang.String" value="Hello World by Type"/>-->
+        <!--<constructor-arg type="int" value="2"/>-->
+    <!--</bean>-->
+
+    <bean id="ByName" class="com.helloworld.use.di.construcor.HelloWorld3Factory" autowire="byName" factory-method="newInstance">
+        <constructor-arg name="message" value="Hello World by Name"/>
+        <constructor-arg name="index" value="3"/>
+    </bean>
+
+    <!--这里我们再来试一试使用工厂bean去实例化bean-->
+    <bean id="factory" class="com.helloworld.use.di.construcor.HelloWorld3Factory"/>
+    <!--这里需要注意，就不能使用惊天的newInstance方法了-->
+    <bean id="fByType" factory-bean="factory" factory-method="newInstance">
+        <constructor-arg type="java.lang.String" value="Hello World by Type"/>
+        <constructor-arg type="int" value="2"/>
     </bean>
 </beans>
