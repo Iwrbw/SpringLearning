@@ -64,4 +64,34 @@
         <constructor-arg type="java.lang.String" value="Hello World by Type"/>
         <constructor-arg type="int" value="2"/>
     </bean>
+
+    <!--使用setter注入-->
+    <bean id="bean5" class="com.helloworld.use.setter.HelloWorld4">
+        <property name="message" value="Hello Spring by setter"/>
+        <property name="index">
+            <value>1</value>
+        </property>
+    </bean>
+    <!--注入list测试类-->
+    <!--<bean id="bean5Demo" class="com.helloworld.use.setter.HelloWorld4">-->
+        <!--<property name="test">-->
+            <!--<list value-type="java.lang.String" merge="true">-->
+                <!--<value>1</value>-->
+                <!--<value>2</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--使用setter注入其他bean-->
+    <bean id="helloApi" class="com.helloworld.use.constructor.HelloWorld"/>
+    <!--通过构造器注入-->
+    <bean id="decorator" class="com.helloworld.use.setter.decorator.DecoratorBean">
+        <constructor-arg index="0" ref="helloApi"/>
+        <constructor-arg name="message" value="Hello Spring"/>
+    </bean>
+    <!--使用构造器注入，这里需要一个空的构造方法-->
+    <bean id="decorator2" class="com.helloworld.use.setter.decorator.DecoratorBean">
+        <property name="helloApi" ref="helloApi"/>
+        <property name="message" value="Hello Spring2"/>
+    </bean>
 </beans>
